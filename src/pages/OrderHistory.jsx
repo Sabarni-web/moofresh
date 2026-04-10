@@ -53,15 +53,19 @@ export default function OrderHistory() {
           style={{ filter: order.greyscale ? 'grayscale(100%)' : 'none' }}
         />
       </div>
-      <button 
-        className="w-full flex items-center justify-center py-2.5 rounded-xl text-sm font-bold shadow-sm"
-        style={{ 
-          backgroundColor: isPast ? '#f1f5f9' : 'var(--primary-blue)', 
-          color: isPast ? 'var(--text-dark)' : 'white'
-        }}
-      >
-        <RotateCcw size={16} className="mr-2" /> Reorder
-      </button>
+      <div style={{ textAlign: 'left' }}>
+        <button 
+          className="flex items-center justify-center rounded-xl text-sm font-bold shadow-sm"
+          style={{ 
+            display: 'inline-flex',
+            padding: '10px 24px',
+            backgroundColor: isPast ? '#f1f5f9' : 'var(--primary-blue)', 
+            color: isPast ? 'var(--text-dark)' : 'white'
+          }}
+        >
+          <RotateCcw size={16} className="mr-2" /> Reorder
+        </button>
+      </div>
     </div>
   );
 

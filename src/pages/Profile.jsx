@@ -9,12 +9,12 @@ export default function Profile() {
 
       {/* Profile Info */}
       <div className="flex flex-col items-center mt-6 mb-8 px-6">
-        <div className="relative mb-4">
-          <div className="w-24 h-24 rounded-full border-4 border-white shadow-sm overflow-hidden" style={{ borderColor: 'var(--accent-blue-light)' }}>
-            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=256&auto=format&fit=crop" alt="Alex Johnson" className="w-full h-full object-cover" />
+        <div className="relative mb-4" style={{ width: '128px', height: '128px', margin: '0 auto 40px' }}>
+          <div className="border-4 border-white shadow-sm overflow-hidden" style={{ width: '100%', height: '100%', borderRadius: '50%', borderColor: 'var(--accent-blue-light)' }}>
+            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=256&auto=format&fit=crop" alt="Alex Johnson" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%' }} />
           </div>
-          <button className="absolute bottom-0 right-0 w-8 h-8 rounded-full border-2 border-white flex justify-center items-center shadow-sm" style={{ backgroundColor: 'var(--primary-blue)' }}>
-            <Pencil size={14} color="white" />
+          <button className="absolute border-2 border-white flex justify-center items-center shadow-sm" style={{ bottom: '16px', right: '4px', width: '36px', height: '36px', borderRadius: '50%', backgroundColor: 'var(--primary-blue)' }}>
+            <Pencil size={16} color="white" />
           </button>
         </div>
         <h2 className="text-xl font-bold text-dark mb-1">Alex Johnson</h2>
@@ -100,20 +100,40 @@ export default function Profile() {
         {/* SUPPORT CENTER */}
         <div style={{ marginBottom: '32px' }}>
           <h3 className="text-[11px] font-bold text-gray uppercase tracking-widest mb-3">SUPPORT CENTER</h3>
-          <div className="grid grid-cols-2 gap-3 mb-3 shrink-0" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))' }}>
-            <button className="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center justify-center gap-2">
-              <HelpCircle size={20} className="text-primary" fill="var(--accent-blue-light)" />
-              <span className="text-xs font-bold text-dark">FAQ</span>
-            </button>
-            <button className="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center justify-center gap-2">
-              <MessageSquare size={20} className="text-primary" fill="var(--accent-blue-light)" />
-              <span className="text-xs font-bold text-dark">Live Chat</span>
-            </button>
+          <div className="flex flex-col gap-3">
+            <div className="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-4 cursor-pointer">
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ backgroundColor: 'var(--accent-blue-light)' }}>
+                 <HelpCircle size={20} className="text-primary" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <h4 className="font-bold text-sm text-dark mb-0.5 truncate">FAQ</h4>
+                <p className="text-xs text-gray truncate">Find answers quickly</p>
+              </div>
+              <ChevronRight size={16} color="#cbd5e1" />
+            </div>
+
+            <div className="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-4 cursor-pointer">
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ backgroundColor: '#fef3c7' }}>
+                 <MessageSquare size={20} color="#d97706" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <h4 className="font-bold text-sm text-dark mb-0.5 truncate">Live Chat</h4>
+                <p className="text-xs text-gray truncate">Talk to our agents instantly</p>
+              </div>
+              <ChevronRight size={16} color="#cbd5e1" />
+            </div>
+
+            <div className="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-4 cursor-pointer">
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ backgroundColor: '#d1fae5' }}>
+                 <Clock size={20} color="#059669" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <h4 className="font-bold text-sm text-dark mb-0.5 truncate">Previous Tickets</h4>
+                <p className="text-xs text-gray truncate">View your support history</p>
+              </div>
+              <ChevronRight size={16} color="#cbd5e1" />
+            </div>
           </div>
-          <button className="w-full bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center justify-center gap-2">
-            <Clock size={20} className="text-primary" />
-            <span className="text-xs font-bold text-dark">Previous Tickets</span>
-          </button>
         </div>
 
       </div>

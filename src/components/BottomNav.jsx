@@ -28,27 +28,29 @@ export default function BottomNav() {
       <NavLink 
         to="/cart" 
         className={({ isActive }) => `bottom-nav-item ${isActive ? 'active' : ''}`}
-        style={{ position: 'relative' }}
       >
-        <ShoppingCart size={20} />
-        <span>Cart</span>
-        <div style={{
-          position: 'absolute',
-          top: '-4px',
-          right: '8px',
-          backgroundColor: '#ef4444',
-          color: 'white',
-          fontSize: '8px',
-          fontWeight: 'bold',
-          borderRadius: '50%',
-          width: '14px',
-          height: '14px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center'
-        }}>
-          2
+        <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+          <ShoppingCart size={20} />
+          <div style={{
+            position: 'absolute',
+            top: '-6px',
+            right: '-8px',
+            backgroundColor: '#ef4444',
+            color: 'white',
+            fontSize: '9px',
+            fontWeight: 'bold',
+            borderRadius: '50%',
+            width: '16px',
+            height: '16px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            border: '2px solid #f6f9fc'
+          }}>
+            2
+          </div>
         </div>
+        <span>Cart</span>
       </NavLink>
       <NavLink 
         to="/profile" 

@@ -1,9 +1,26 @@
+import { useState } from 'react';
 import { Bell, Truck, Trash2, Tag, Percent, Settings, Plus, Minus, Search, Heart } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import BottomNav from '../components/BottomNav';
 
 export default function Home() {
   const navigate = useNavigate();
+  const [milkActive, setMilkActive] = useState(true);
+  const [curdActive, setCurdActive] = useState(true);
+
+  const [liked, setLiked] = useState({});
+  const toggleLike = (e, id) => {
+    e.stopPropagation();
+    setLiked(prev => ({ ...prev, [id]: !prev[id] }));
+  };
+
+  const popularProducts = [
+    { id: 1, name: 'Soft Malai Paneer', category: 'Fresh Dairy', price: '4.50', img: '/paneer.png' },
+    { id: 2, name: 'Salted Cow Butter', category: 'Artisanal', price: '3.20', img: '/butter.png' },
+    { id: 3, name: 'A2 Cow Milk', category: 'Everyday', price: '5.20', img: '/milk.png' },
+    { id: 4, name: 'Fresh Set Curd', category: 'Probiotics', price: '2.50', img: '/curd.png' },
+  ];
+
   return (
     <div className="flex flex-col h-full animate-fade-in" style={{ backgroundColor: '#f6f9fc', minHeight: '100vh', paddingBottom: '80px' }}>
       
@@ -107,15 +124,18 @@ export default function Home() {
             <div style={{ marginLeft: '16px', flex: 1 }}>
               <div className="flex items-center" style={{ gap: '8px', marginBottom: '4px' }}>
                 <h4 className="font-bold">Full Cream Milk</h4>
-                <span style={{ backgroundColor: '#d1fae5', color: '#059669', fontSize: '8px', padding: '2px 6px', borderRadius: '4px', fontWeight: 'bold' }}>ACTIVE</span>
+                <span style={{ backgroundColor: milkActive ? '#d1fae5' : '#f1f5f9', color: milkActive ? '#059669' : '#64748b', fontSize: '8px', padding: '2px 6px', borderRadius: '4px', fontWeight: 'bold' }}>{milkActive ? 'ACTIVE' : 'PAUSED'}</span>
               </div>
               <p className="text-xs text-gray" style={{ marginBottom: '4px' }}>1 Litre • Daily Delivery</p>
               <p className="text-xs text-light" style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
                  <span>📅</span> Next: Tomorrow 6:00 AM
               </p>
             </div>
-            <div style={{ width: '40px', height: '24px', backgroundColor: '#4fa6fd', borderRadius: '12px', position: 'relative' }}>
-               <div style={{ position: 'absolute', right: '2px', top: '2px', width: '20px', height: '20px', backgroundColor: 'white', borderRadius: '50%' }}></div>
+            <div 
+              style={{ width: '40px', height: '24px', backgroundColor: milkActive ? '#4fa6fd' : '#e2e8f0', borderRadius: '12px', position: 'relative', transition: 'all 0.3s' }}
+              onClick={(e) => { e.stopPropagation(); setMilkActive(!milkActive); }}
+            >
+               <div style={{ position: 'absolute', right: milkActive ? '2px' : '18px', top: '2px', width: '20px', height: '20px', backgroundColor: 'white', borderRadius: '50%', transition: 'all 0.3s' }}></div>
             </div>
           </div>
 
@@ -128,15 +148,18 @@ export default function Home() {
             <div style={{ marginLeft: '16px', flex: 1 }}>
               <div className="flex items-center" style={{ gap: '8px', marginBottom: '4px' }}>
                 <h4 className="font-bold">Probiotic Curd</h4>
-                <span style={{ backgroundColor: '#d1fae5', color: '#059669', fontSize: '8px', padding: '2px 6px', borderRadius: '4px', fontWeight: 'bold' }}>ACTIVE</span>
+                <span style={{ backgroundColor: curdActive ? '#d1fae5' : '#f1f5f9', color: curdActive ? '#059669' : '#64748b', fontSize: '8px', padding: '2px 6px', borderRadius: '4px', fontWeight: 'bold' }}>{curdActive ? 'ACTIVE' : 'PAUSED'}</span>
               </div>
               <p className="text-xs text-gray" style={{ marginBottom: '4px' }}>500g • Mon, Wed, Fri</p>
               <p className="text-xs text-light" style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
                  <span>📅</span> Next: Tomorrow 6:00 AM
               </p>
             </div>
-             <div style={{ width: '40px', height: '24px', backgroundColor: '#4fa6fd', borderRadius: '12px', position: 'relative' }}>
-               <div style={{ position: 'absolute', right: '2px', top: '2px', width: '20px', height: '20px', backgroundColor: 'white', borderRadius: '50%' }}></div>
+             <div 
+               style={{ width: '40px', height: '24px', backgroundColor: curdActive ? '#4fa6fd' : '#e2e8f0', borderRadius: '12px', position: 'relative', transition: 'all 0.3s' }}
+               onClick={(e) => { e.stopPropagation(); setCurdActive(!curdActive); }}
+             >
+               <div style={{ position: 'absolute', right: curdActive ? '2px' : '18px', top: '2px', width: '20px', height: '20px', backgroundColor: 'white', borderRadius: '50%', transition: 'all 0.3s' }}></div>
             </div>
           </div>
         </div>
@@ -147,40 +170,28 @@ export default function Home() {
           <a href="#" className="text-sm text-primary font-semibold">Browse Shop</a>
         </div>
 
-        <div className="flex" style={{ gap: '16px', marginBottom: '24px' }}>
-          <div style={{ flex: 1, backgroundColor: 'white', borderRadius: '16px', overflow: 'hidden', boxShadow: 'var(--surface-shadow)', position: 'relative' }}>
-            <div style={{ position: 'absolute', top: '12px', right: '12px', backgroundColor: 'white', borderRadius: '50%', padding: '6px', cursor: 'pointer' }}>
-               <Heart size={16} color="#94a3b8" />
-            </div>
-            <img src="/paneer.png" style={{ width: '100%', height: '140px', objectFit: 'cover' }} />
-            <div style={{ padding: '12px' }}>
-              <p className="text-xs text-gray font-medium" style={{ marginBottom: '4px' }}>Fresh Dairy</p>
-              <h4 className="font-bold text-sm" style={{ marginBottom: '12px' }}>Soft Malai Paneer</h4>
-              <div className="flex justify-between items-center">
-                <span className="font-bold text-primary">₹4.50</span>
-                <button style={{ backgroundColor: '#f0f6fc', padding: '6px', borderRadius: '8px', color: '#4fa6fd' }}>
-                  <Plus size={16} />
-                </button>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '16px', marginBottom: '24px' }}>
+          {popularProducts.map(product => (
+            <div key={product.id} style={{ backgroundColor: 'white', borderRadius: '16px', overflow: 'hidden', boxShadow: 'var(--surface-shadow)', position: 'relative' }}>
+              <div 
+                style={{ position: 'absolute', top: '12px', right: '12px', backgroundColor: 'white', borderRadius: '50%', padding: '6px', cursor: 'pointer', zIndex: 10 }}
+                onClick={(e) => toggleLike(e, product.id)}
+              >
+                 <Heart size={16} color={liked[product.id] ? "#ef4444" : "#94a3b8"} fill={liked[product.id] ? "#ef4444" : "none"} />
+              </div>
+              <img src={product.img} style={{ width: '100%', height: '140px', objectFit: 'cover' }} />
+              <div style={{ padding: '12px' }}>
+                <p className="text-xs text-gray font-medium" style={{ marginBottom: '4px' }}>{product.category}</p>
+                <h4 className="font-bold text-sm" style={{ marginBottom: '12px' }}>{product.name}</h4>
+                <div className="flex justify-between items-center">
+                  <span className="font-bold text-primary">₹{product.price}</span>
+                  <button style={{ backgroundColor: '#f0f6fc', padding: '6px', borderRadius: '8px', color: '#4fa6fd' }}>
+                    <Plus size={16} />
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-
-          <div style={{ flex: 1, backgroundColor: 'white', borderRadius: '16px', overflow: 'hidden', boxShadow: 'var(--surface-shadow)', position: 'relative' }}>
-             <div style={{ position: 'absolute', top: '12px', right: '12px', backgroundColor: 'white', borderRadius: '50%', padding: '6px', cursor: 'pointer' }}>
-               <Heart size={16} color="#94a3b8" />
-            </div>
-            <img src="/butter.png" style={{ width: '100%', height: '140px', objectFit: 'cover' }} />
-            <div style={{ padding: '12px' }}>
-              <p className="text-xs text-gray font-medium" style={{ marginBottom: '4px' }}>Artisanal</p>
-              <h4 className="font-bold text-sm" style={{ marginBottom: '12px' }}>Salted Cow Butter</h4>
-              <div className="flex justify-between items-center">
-                <span className="font-bold text-primary">₹3.20</span>
-                <button style={{ backgroundColor: '#f0f6fc', padding: '6px', borderRadius: '8px', color: '#4fa6fd' }}>
-                  <Plus size={16} />
-                </button>
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
 
       </div>
