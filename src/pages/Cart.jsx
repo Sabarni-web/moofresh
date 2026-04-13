@@ -6,9 +6,9 @@ import Header from '../components/Header';
 export default function Cart() {
   const navigate = useNavigate();
   const [items, setItems] = useState([
-    { id: 1, name: 'Organic Avocado', price: 4.50, qty: 2, image: 'https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?q=80&w=150&auto=format&fit=crop' },
-    { id: 2, name: 'Wagyu Ribeye Steak', price: 45.00, qty: 1, image: 'https://images.unsplash.com/photo-1600891964092-4316c288032e?q=80&w=150&auto=format&fit=crop' },
-    { id: 3, name: 'Garden Asparagus', price: 3.25, qty: 1, image: 'https://images.unsplash.com/photo-1515471209610-dae1c92d8777?q=80&w=150&auto=format&fit=crop' }
+    { id: 1, name: 'A2 Cow Milk', price: 4.50, qty: 2, image: '/milk.png' },
+    { id: 2, name: 'Soft Malai Paneer', price: 45.00, qty: 1, image: '/paneer.png' },
+    { id: 3, name: 'Fresh Set Curd', price: 3.25, qty: 1, image: '/curd.png' }
   ]);
 
   const updateQty = (id, delta) => {

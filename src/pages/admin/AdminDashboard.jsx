@@ -56,7 +56,7 @@ const AdminDashboard = () => {
             <div style={{ backgroundColor: '#dcfce7', color: '#10b981', padding: '4px 10px', borderRadius: '100px', fontSize: '0.75rem', fontWeight: 700 }}>+18%</div>
           </div>
           <div style={{ color: '#6b7a90', fontSize: '0.875rem', fontWeight: 600, marginBottom: '8px' }}>Total Revenue</div>
-          <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#121c2c' }}>₹45,230</div>
+          <div style={{ fontSize: '1.4rem', fontWeight: 800, color: '#121c2c', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>₹45,230</div>
         </div>
 
       </div>
@@ -99,8 +99,8 @@ const AdminDashboard = () => {
             </div>
           </div>
           <div style={{ height: '200px', borderTop: '1px solid #f1f5f9', position: 'relative', display: 'flex', alignItems: 'flex-end', paddingTop: '20px' }}>
-            <svg viewBox="0 0 400 150" style={{ width: '100%', height: '100%' }} preserveAspectRatio="none">
-              <path d="M0,80 C50,80 80,40 120,40 C160,40 180,120 220,120 C260,120 280,10 320,10 C360,10 380,130 400,90" fill="none" stroke="#4fa6fd" strokeWidth="4" strokeDasharray="6 6"/>
+            <svg viewBox="0 0 400 150" style={{ width: '100%', height: '100%', overflow: 'visible' }} preserveAspectRatio="none">
+              <path d="M0,80 C50,80 80,40 120,40 C160,40 180,120 220,120 C260,120 280,10 320,10 C360,10 380,130 400,90" fill="none" stroke="#4fa6fd" strokeWidth="4" />
             </svg>
             <div style={{ position: 'absolute', bottom: '-20px', left: 0, right: 0, display: 'flex', justifyContent: 'space-between', color: '#94a3b8', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.05em' }}>
               <span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span>FRI</span><span>SAT</span><span>SUN</span>

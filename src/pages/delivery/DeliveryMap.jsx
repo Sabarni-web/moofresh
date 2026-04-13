@@ -1,4 +1,4 @@
-import { ArrowLeft, Navigation as NavIcon, Phone, MessageSquare, Podcast, Bike, Search as SearchIcon, Layers, Crosshair } from 'lucide-react';
+import { ArrowLeft, Navigation as NavIcon, Phone, MessageSquare, History, Bike, Search as SearchIcon, Layers, Crosshair } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import DeliveryBottomNav from '../../components/DeliveryBottomNav';
 
@@ -6,29 +6,18 @@ const DeliveryMap = () => {
   return (
     <div style={{ height: '100vh', width: '100%', display: 'flex', flexDirection: 'column', position: 'relative', overflow: 'hidden' }}>
 
-      {/* Fake Map Background */}
-      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: '#bdecb6', backgroundImage: 'url("https://maps.wikimedia.org/osm-intl/13/1310/3166.png")', backgroundSize: 'cover', backgroundPosition: 'center', zIndex: 0 }}>
-
-        {/* Destination Red Dot Marker */}
-        <div style={{ position: 'absolute', top: '210px', left: '60%', transform: 'translate(-50%, -50%)', width: '24px', height: '24px', backgroundColor: 'rgba(239,68,68,0.2)', borderRadius: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <div style={{ width: '14px', height: '14px', backgroundColor: '#ef4444', borderRadius: '50%', border: '2px solid white', boxShadow: '0 2px 4px rgba(0,0,0,0.2)' }}></div>
-        </div>
-
-        {/* Current Location Blue Arrow Marker */}
-        <div style={{ position: 'absolute', top: '330px', left: '50%', transform: 'translate(-50%, -50%)', width: '40px', height: '40px', backgroundColor: 'rgba(79,166,253,0.3)', borderRadius: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 2 }}>
-          <div style={{ width: '24px', height: '24px', backgroundColor: '#4fa6fd', borderRadius: '50%', border: '3px solid white', display: 'flex', justifyContent: 'center', alignItems: 'center', boxShadow: '0 4px 8px rgba(0,0,0,0.2)' }}>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="white" style={{ transform: 'rotate(-45deg)', marginLeft: '2px', marginTop: '-2px' }}><path d="M3 11L22 2L13 21L11 13L3 11Z" /></svg>
-          </div>
-        </div>
-
-        {/* Route Line */}
-        <svg style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 1 }}>
-          <line x1="50%" y1="330" x2="50%" y2="280" stroke="#4fa6fd" strokeWidth="5" strokeLinecap="round" />
-          <line x1="50%" y1="280" x2="60%" y2="280" stroke="#4fa6fd" strokeWidth="5" strokeLinecap="round" />
-          <line x1="60%" y1="280" x2="60%" y2="210" stroke="#4fa6fd" strokeWidth="5" strokeLinecap="round" />
-          <circle cx="50%" cy="280" r="2.5" fill="#4fa6fd" />
-          <circle cx="60%" cy="280" r="2.5" fill="#4fa6fd" />
-        </svg>
+      {/* Native Map Layout */}
+      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 0 }}>
+        <iframe
+          title="Google Map Live"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12094.571407289895!2d-74.00441443425712!3d40.72591605333552!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c2598f804cc8f1%3A0xe54d89617ab275f1!2sNew%20York%2C%20NY%2010009%2C%20USA!5e0!3m2!1sen!2s!4v1698248834924!5m2!1sen!2s"
+          width="100%"
+          height="100%"
+          style={{ border: 0 }}
+          allowFullScreen=""
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+        ></iframe>
       </div>
 
       {/* Top Header Controls */}
@@ -40,9 +29,9 @@ const DeliveryMap = () => {
           <SearchIcon size={20} color="#4fa6fd" />
           <input type="text" placeholder="Search for next stop..." style={{ border: 'none', outline: 'none', padding: '12px', width: '100%', fontSize: '14px', color: '#121c2c' }} />
         </div>
-        <div className="btn-scale" style={{ width: '48px', height: '48px', backgroundColor: '#ffffff', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 12px rgba(0,0,0,0.1)', cursor: 'pointer' }}>
-          <Podcast size={24} color="#121c2c" />
-        </div>
+        <Link to="/orders" className="btn-scale" style={{ width: '48px', height: '48px', backgroundColor: '#ffffff', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 12px rgba(0,0,0,0.1)', cursor: 'pointer', textDecoration: 'none' }}>
+          <History size={24} color="#121c2c" />
+        </Link>
       </div>
 
       {/* Floating Status Badge */}

@@ -1,7 +1,15 @@
-import { ArrowLeft, Info, MapPin, Camera, PenTool, RotateCcw } from 'lucide-react';
+import { ArrowLeft, Info, MapPin, Camera, PenTool, RotateCcw, CheckCircle } from 'lucide-react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const DeliveryConfirmation = () => {
+  const [photo, setPhoto] = useState('url("https://images.unsplash.com/photo-1513694203232-719a280e022f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80")');
+  const [isPhotoTaken, setIsPhotoTaken] = useState(false);
+  
+  const takePhoto = () => {
+    setPhoto('url("https://plus.unsplash.com/premium_photo-1664303498967-73a7fd96d5e7?q=80&w=800&auto=format&fit=crop")');
+    setIsPhotoTaken(true);
+  };
   return (
     <div style={{ backgroundColor: '#ffffff', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       {/* Header */}
@@ -29,7 +37,7 @@ const DeliveryConfirmation = () => {
         <div>
           <h2 style={{ fontSize: '1.125rem', fontWeight: 700, color: '#121c2c', marginBottom: '16px' }}>Delivery Details</h2>
           <div style={{ borderRadius: '16px', border: '1px solid #f1f5f9', overflow: 'hidden', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.05)' }}>
-            <div style={{ width: '100%', height: '160px', backgroundColor: '#e2e8f0', backgroundImage: 'url("https://images.unsplash.com/photo-1513694203232-719a280e022f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80")', backgroundSize: 'cover', backgroundPosition: 'center' }}></div>
+            <div style={{ width: '100%', height: '160px', backgroundColor: '#e2e8f0', backgroundImage: photo, backgroundSize: 'cover', backgroundPosition: 'center', transition: 'all 0.3s ease' }}></div>
             <div style={{ padding: '16px' }}>
               <h3 style={{ fontSize: '1.125rem', margin: '0 0 4px 0', color: '#121c2c', fontWeight: 700 }}>Package for John Doe</h3>
               <p style={{ margin: '0 0 12px 0', color: '#6b7a90', fontSize: '0.875rem', fontWeight: 600 }}>Order #88291 • Standard Express</p>
@@ -40,9 +48,9 @@ const DeliveryConfirmation = () => {
             </div>
             
             <div style={{ padding: '0 16px 16px 16px' }}>
-               <button className="btn-scale" style={{ width: '100%', backgroundColor: '#f0f7ff', color: '#4fa6fd', border: '2px dashed #4fa6fd', borderRadius: '12px', padding: '16px', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px', fontWeight: 700, fontSize: '0.875rem' }}>
-                 <Camera size={20} />
-                 Take Photo of Delivery
+               <button onClick={takePhoto} className="btn-scale" style={{ width: '100%', backgroundColor: isPhotoTaken ? '#dcfce7' : '#f0f7ff', color: isPhotoTaken ? '#10b981' : '#4fa6fd', border: `2px dashed ${isPhotoTaken ? '#10b981' : '#4fa6fd'}`, borderRadius: '12px', padding: '16px', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px', fontWeight: 700, fontSize: '0.875rem' }}>
+                 {isPhotoTaken ? <CheckCircle size={20} /> : <Camera size={20} />}
+                 {isPhotoTaken ? 'Photo Captured' : 'Take Photo of Delivery'}
                </button>
             </div>
           </div>

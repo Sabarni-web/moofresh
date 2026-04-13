@@ -1,7 +1,9 @@
+import { useState } from 'react';
 import { Search, Bell, MapPin, Package, Navigation2, CheckCircle2, Clock } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const ActiveDeliveries = () => {
+  const [activeTab, setActiveTab] = useState('Upcoming');
   return (
     <div style={{ padding: '0', backgroundColor: '#f6f9fc', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       {/* Header */}
@@ -20,20 +22,27 @@ const ActiveDeliveries = () => {
 
       {/* Tabs */}
       <div className="page-wrapper" style={{ display: 'flex', borderBottom: '1px solid #e2e8f0', marginBottom: '1rem' }}>
-        <div style={{ paddingBottom: '12px', marginRight: '24px', borderBottom: '3px solid #4fa6fd', color: '#4fa6fd', fontWeight: 600, fontSize: '14px' }}>
-          Upcoming (4)
-        </div>
-        <div style={{ paddingBottom: '12px', marginRight: '24px', color: '#94a3b8', fontWeight: 600, fontSize: '14px' }}>
-          Completed
-        </div>
-        <div style={{ paddingBottom: '12px', color: '#94a3b8', fontWeight: 600, fontSize: '14px' }}>
-          Issues
-        </div>
+        {['Upcoming', 'Completed', 'Issues'].map(tab => (
+          <div 
+            key={tab}
+            onClick={() => setActiveTab(tab)}
+            style={{ 
+              paddingBottom: '12px', marginRight: '24px', 
+              borderBottom: activeTab === tab ? '3px solid #4fa6fd' : 'none', 
+              color: activeTab === tab ? '#4fa6fd' : '#94a3b8', 
+              fontWeight: 600, fontSize: '14px', cursor: 'pointer' 
+            }}
+          >
+            {tab} {tab === 'Upcoming' && '(4)'}
+          </div>
+        ))}
       </div>
 
       {/* List */}
       <div className="page-wrapper responsive-row mb-8" style={{ paddingBottom: '80px' }}>
         
+        {activeTab === 'Upcoming' && (
+          <>
         {/* Card 1 */}
         <div className="hover-lift" style={{ backgroundColor: '#ffffff', borderRadius: '16px', padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '16px', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.05)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -136,6 +145,22 @@ const ActiveDeliveries = () => {
             Awaiting your arrival at previous stops
           </div>
         </div>
+
+          </>
+        )}
+
+        {activeTab === 'Completed' && (
+          <div style={{ padding: '40px', textAlign: 'center', color: '#94a3b8', display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
+            <CheckCircle2 size={48} style={{ margin: '0 auto 16px auto', opacity: 0.5 }} />
+            <p>You have no completed deliveries today.</p>
+          </div>
+        )}
+        
+        {activeTab === 'Issues' && (
+          <div style={{ padding: '40px', textAlign: 'center', color: '#94a3b8', display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
+            <p>No issues reported.</p>
+          </div>
+        )}
 
       </div>
     </div>

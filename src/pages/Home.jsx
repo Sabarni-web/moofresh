@@ -13,6 +13,14 @@ export default function Home() {
     setLiked(prev => ({ ...prev, [id]: !prev[id] }));
   };
 
+  const [quantities, setQuantities] = useState({});
+  const updateQty = (id, delta) => {
+    setQuantities(prev => ({
+      ...prev,
+      [id]: Math.max(0, (prev[id] || 0) + delta)
+    }));
+  };
+
   const popularProducts = [
     { id: 1, name: 'Soft Malai Paneer', category: 'Fresh Dairy', price: '4.50', img: '/paneer.png' },
     { id: 2, name: 'Salted Cow Butter', category: 'Artisanal', price: '3.20', img: '/butter.png' },
@@ -106,9 +114,17 @@ export default function Home() {
                     <h4 className="font-bold text-sm" style={{ marginBottom: '12px' }}>{product.name}</h4>
                     <div className="flex justify-between items-center">
                       <span className="font-bold text-primary">₹{product.price}</span>
-                      <button style={{ backgroundColor: '#f0f6fc', padding: '6px', borderRadius: '8px', color: '#4fa6fd' }}>
-                        <Plus size={16} />
-                      </button>
+                      {quantities[product.id] > 0 ? (
+                        <div className="flex items-center gap-1" style={{ backgroundColor: '#f0f6fc', padding: '2px', borderRadius: '8px' }}>
+                          <button onClick={() => updateQty(product.id, -1)} className="text-primary w-6 h-6 flex justify-center items-center rounded-md hover:bg-white"><Minus size={14} /></button>
+                          <span className="text-sm font-bold w-4 text-center" style={{ color: '#4fa6fd' }}>{quantities[product.id]}</span>
+                          <button onClick={() => updateQty(product.id, 1)} className="text-primary w-6 h-6 flex justify-center items-center rounded-md hover:bg-white"><Plus size={14} /></button>
+                        </div>
+                      ) : (
+                        <button onClick={() => updateQty(product.id, 1)} style={{ backgroundColor: '#f0f6fc', padding: '6px', borderRadius: '8px', color: '#4fa6fd' }}>
+                          <Plus size={16} />
+                        </button>
+                      )}
                     </div>
                   </div>
                 </div>

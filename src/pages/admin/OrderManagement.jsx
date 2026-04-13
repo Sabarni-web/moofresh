@@ -1,7 +1,22 @@
+import { useState } from 'react';
 import { Search, Bell, ListTodo, History, Truck, BarChart3, Settings, Plus, ChevronDown, ChevronLeft, ChevronRight, Phone, MapPin, Package, Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const OrderManagement = () => {
+  const [activeTab, setActiveTab] = useState('All Orders');
+  const allOrders = [
+    { id: '#ORD-9421', active: true, name: 'Sarah Jenkins', loc: 'New York, NY', items: '3x Kitchenware...', status: 'OUT FOR DELIVERY', statusBg: '#e5f0ff', statusColor: '#4fa6fd', total: '₹245.00' },
+    { id: '#ORD-9418', active: false, name: 'Michael Chen', loc: 'Jersey City, NJ', items: '1x Gaming Mouse', status: 'PENDING', statusBg: '#fef3c7', statusColor: '#d97706', total: '₹59.99' },
+    { id: '#ORD-9415', active: false, name: 'Elena Rodriguez', loc: 'Brooklyn, NY', items: '2x Wireless Head...', status: 'DELIVERED', statusBg: '#dcfce7', statusColor: '#10b981', total: '₹189.50' },
+    { id: '#ORD-9412', active: false, name: 'James Wilson', loc: 'Staten Island, NY', items: '5x Office Supplies', status: 'DELIVERED', statusBg: '#dcfce7', statusColor: '#10b981', total: '₹112.20' },
+  ];
+  const filteredOrders = activeTab === 'All Orders' ? allOrders : allOrders.filter(row => {
+    if (activeTab === 'Pending') return row.status === 'PENDING';
+    if (activeTab === 'In Transit') return row.status === 'OUT FOR DELIVERY';
+    if (activeTab === 'Delivered') return row.status === 'DELIVERED';
+    return true;
+  });
+
   return (
     <div style={{ backgroundColor: '#f6f9fc', minHeight: '100vh', display: 'flex', flexDirection: 'column', width: '100vw', overflow: 'hidden' }}>
       
@@ -81,25 +96,29 @@ const OrderManagement = () => {
               <h1 style={{ fontSize: '2rem', fontWeight: 800, color: '#121c2c', margin: '0 0 8px 0' }}>Order Management</h1>
               <p style={{ color: '#6b7a90', fontSize: '1rem', margin: 0 }}>Real-time logistics monitoring and dispatch control.</p>
             </div>
-            <button className="btn-scale" style={{ backgroundColor: '#4fa6fd', color: '#ffffff', borderRadius: '8px', padding: '12px 24px', display: 'flex', alignItems: 'center', gap: '8px', fontWeight: 700, fontSize: '1rem', border: 'none', cursor: 'pointer', boxShadow: '0 4px 12px rgba(79, 166, 253, 0.3)' }}>
+            <button onClick={() => alert("Opening New Manual Order Form")} className="btn-scale" style={{ backgroundColor: '#4fa6fd', color: '#ffffff', borderRadius: '8px', padding: '12px 24px', display: 'flex', alignItems: 'center', gap: '8px', fontWeight: 700, fontSize: '1rem', border: 'none', cursor: 'pointer', boxShadow: '0 4px 12px rgba(79, 166, 253, 0.3)' }}>
               <Plus size={20} /> New Manual Order
             </button>
           </div>
 
           {/* Tabs */}
           <div style={{ display: 'flex', gap: '32px', borderBottom: '1px solid #e2e8f0', marginBottom: '24px', flexWrap: 'wrap' }}>
-            <div style={{ color: '#4fa6fd', fontWeight: 700, fontSize: '0.875rem', paddingBottom: '16px', borderBottom: '3px solid #4fa6fd', display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
-              All Orders <span style={{ backgroundColor: '#e5f0ff', color: '#4fa6fd', padding: '2px 8px', borderRadius: '100px', fontSize: '0.75rem' }}>84</span>
-            </div>
-            <div style={{ color: '#6b7a90', fontWeight: 600, fontSize: '0.875rem', paddingBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
-              Pending <span style={{ backgroundColor: '#f1f5f9', color: '#6b7a90', padding: '2px 8px', borderRadius: '100px', fontSize: '0.75rem' }}>12</span>
-            </div>
-            <div style={{ color: '#6b7a90', fontWeight: 600, fontSize: '0.875rem', paddingBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
-              In Transit <span style={{ backgroundColor: '#f1f5f9', color: '#6b7a90', padding: '2px 8px', borderRadius: '100px', fontSize: '0.75rem' }}>34</span>
-            </div>
-            <div style={{ color: '#6b7a90', fontWeight: 600, fontSize: '0.875rem', paddingBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
-              Delivered <span style={{ backgroundColor: '#f1f5f9', color: '#6b7a90', padding: '2px 8px', borderRadius: '100px', fontSize: '0.75rem' }}>38</span>
-            </div>
+            {['All Orders', 'Pending', 'In Transit', 'Delivered'].map(tab => (
+              <div 
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                style={{ 
+                  color: activeTab === tab ? '#4fa6fd' : '#6b7a90', 
+                  fontWeight: activeTab === tab ? 700 : 600, 
+                  fontSize: '0.875rem', 
+                  paddingBottom: '16px', 
+                  borderBottom: activeTab === tab ? '3px solid #4fa6fd' : 'none', 
+                  display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' 
+                }}
+              >
+                {tab} <span style={{ backgroundColor: activeTab === tab ? '#e5f0ff' : '#f1f5f9', color: activeTab === tab ? '#4fa6fd' : '#6b7a90', padding: '2px 8px', borderRadius: '100px', fontSize: '0.75rem' }}>{tab === 'All Orders' ? allOrders.length : filteredOrders.length}</span>
+              </div>
+            ))}
           </div>
 
           {/* Filters */}
@@ -126,12 +145,7 @@ const OrderManagement = () => {
                 </tr>
               </thead>
               <tbody>
-                {[
-                  { id: '#ORD-9421', active: true, name: 'Sarah Jenkins', loc: 'New York, NY', items: '3x Kitchenware...', status: 'OUT FOR DELIVERY', statusBg: '#e5f0ff', statusColor: '#4fa6fd', total: '₹245.00' },
-                  { id: '#ORD-9418', active: false, name: 'Michael Chen', loc: 'Jersey City, NJ', items: '1x Gaming Mouse', status: 'PENDING', statusBg: '#fef3c7', statusColor: '#d97706', total: '₹59.99' },
-                  { id: '#ORD-9415', active: false, name: 'Elena Rodriguez', loc: 'Brooklyn, NY', items: '2x Wireless Head...', status: 'DELIVERED', statusBg: '#dcfce7', statusColor: '#10b981', total: '₹189.50' },
-                  { id: '#ORD-9412', active: false, name: 'James Wilson', loc: 'Staten Island, NY', items: '5x Office Supplies', status: 'DELIVERED', statusBg: '#dcfce7', statusColor: '#10b981', total: '₹112.20' },
-                ].map(row => (
+                {filteredOrders.map(row => (
                   <tr key={row.id} className="table-row-hover" style={{ borderBottom: '1px solid #f1f5f9', backgroundColor: row.active ? '#f8fafc' : '#ffffff' }}>
                     <td style={{ padding: '24px', fontWeight: 800, color: row.active ? '#4fa6fd' : '#121c2c', fontSize: '0.875rem', position: 'relative' }}>
                       {row.active && <div style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#4fa6fd' }}></div>}
@@ -165,7 +179,7 @@ const OrderManagement = () => {
         </div>
 
         {/* Right Sidebar: Order Details */}
-        <div className="order-split-sidebar" style={{ width: '400px', backgroundColor: '#ffffff', borderLeft: '1px solid #e2e8f0', padding: '32px', overflowY: 'auto' }}>
+        <div className="order-split-sidebar" style={{ minWidth: '350px', width: '400px', maxWidth: '100vw', backgroundColor: '#ffffff', borderLeft: '1px solid #e2e8f0', padding: '32px', overflowY: 'auto' }}>
           
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
             <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#121c2c', margin: 0 }}>Order Details</h2>

@@ -358,6 +358,27 @@ h1, h2, h3, h4, h5, h6 { font-weight: 700; color: var(--text-dark); }
 @media (max-width: 1024px) {
   .grid-4 { grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 24px; }
   .grid-3 { grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 24px; }
+
+  /* Order split view override */
+  .order-split-layout {
+    flex-direction: column !important;
+    overflow-y: auto !important;
+  }
+  
+  .order-split-sidebar {
+    width: 100% !important;
+    min-width: 0 !important;
+    border-left: none !important;
+    border-top: 1px solid #f1f5f9;
+    overflow-y: visible !important;
+  }
+  
+  .order-split-main {
+     width: 100% !important;
+     padding: 16px !important;
+     flex: auto !important;
+     overflow-y: visible !important;
+  }
 }
 
 /* Mobile (Max 768px) */
@@ -425,22 +446,9 @@ h1, h2, h3, h4, h5, h6 { font-weight: 700; color: var(--text-dark); }
   .admin-main-wrapper {
     padding: 16px !important;
   }
-
-  /* Order split view override */
-  .order-split-layout {
-    flex-direction: column !important;
-  }
-  
-  .order-split-sidebar {
-    width: 100% !important;
-    border-left: none !important;
-    border-top: 1px solid #f1f5f9;
-  }
-  .order-split-main {
-     width: 100% !important;
-     padding: 16px !important;
-  }
 }
+
+
 
 /* Mobile Top Nav Hamburger Override */
 .mobile-nav-toggle {

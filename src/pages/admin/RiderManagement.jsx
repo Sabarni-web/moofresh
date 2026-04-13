@@ -1,7 +1,25 @@
+import { useState } from 'react';
 import { Search, Bell, Map as MapIcon, BarChart2, Star, Bike, Truck, AlertTriangle, ChevronDown, LayoutGrid, Users, MapPin, TrendingUp, DollarSign, Download, Settings } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const RiderManagement = () => {
+  const [sortBy, setSortBy] = useState('Rating');
+  
+  const ridersData = [
+    { name: 'David Miller', id: '#RD-8921', rating: '4.9', completed: '1,420', ontime: '98%', status: 'Online', statusBg: '#dcfce7', statusText: '#10b981', barWidth: '98%', barColor: '#10b981', imgColor: '#4fa6fd' },
+    { name: 'Elena Rodriguez', id: '#RD-7732', rating: '4.7', completed: '856', ontime: '92%', status: 'Busy', statusBg: '#e5f0ff', statusText: '#4fa6fd', barWidth: '85%', barColor: '#4fa6fd', imgColor: '#a855f7' },
+    { name: 'James Wilson', id: '#RD-4410', rating: '4.2', completed: '312', ontime: '84%', status: 'Review Needed', statusBg: '#fef3c7', statusText: '#d97706', barWidth: '40%', barColor: '#ef4444', imgColor: '#f97316' },
+    { name: 'Sarah Parker', id: '#RD-1290', rating: '5.0', completed: '2,105', ontime: '99%', status: 'Top Performer', statusBg: '#dcfce7', statusText: '#10b981', barWidth: '99%', barColor: '#10b981', imgColor: '#ec4899' },
+  ];
+
+  const sortedRiders = [...ridersData].sort((a, b) => {
+    if (sortBy === 'Rating') {
+      return parseFloat(b.rating) - parseFloat(a.rating);
+    } else {
+      return a.name.localeCompare(b.name);
+    }
+  });
+
   return (
     <div style={{ backgroundColor: '#f8fafc', minHeight: '100vh', display: 'flex', flexDirection: 'column', width: '100vw', overflow: 'hidden' }}>
       
@@ -123,15 +141,15 @@ const RiderManagement = () => {
               <div style={{ fontSize: '2rem', fontWeight: 800, color: '#121c2c' }}>94.2%</div>
             </div>
 
-            <div className="hover-lift" style={{ backgroundColor: '#ffffff', borderRadius: '16px', padding: '24px', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.05)' }}>
+            <div className="hover-lift" style={{ backgroundColor: '#ef4444', borderRadius: '16px', padding: '24px', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.05)' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '24px' }}>
-                <div style={{ backgroundColor: '#fee2e2', padding: '12px', borderRadius: '12px' }}>
+                <div style={{ backgroundColor: '#fef2f2', padding: '12px', borderRadius: '12px' }}>
                   <AlertTriangle size={24} color="#ef4444" />
                 </div>
-                <div style={{ backgroundColor: '#fee2e2', color: '#ef4444', padding: '4px 10px', borderRadius: '100px', fontSize: '0.75rem', fontWeight: 800 }}>Alert</div>
+                <div style={{ backgroundColor: '#fef2f2', color: '#ef4444', padding: '4px 10px', borderRadius: '100px', fontSize: '0.75rem', fontWeight: 800 }}>Alert</div>
               </div>
-              <div style={{ color: '#6b7a90', fontSize: '0.875rem', fontWeight: 600, marginBottom: '8px' }}>Critical Alerts</div>
-              <div style={{ fontSize: '2rem', fontWeight: 800, color: '#121c2c' }}>24</div>
+              <div style={{ color: '#fef2f2', fontSize: '0.875rem', fontWeight: 600, marginBottom: '8px' }}>Critical Alerts</div>
+              <div style={{ fontSize: '2rem', fontWeight: 800, color: '#ffffff' }}>24</div>
             </div>
 
           </div>
@@ -143,8 +161,8 @@ const RiderManagement = () => {
             <div style={{ padding: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #f1f5f9', flexWrap: 'wrap', gap: '16px' }}>
               <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#121c2c', margin: 0 }}>Rider Performance Metrics</h2>
               <div style={{ display: 'flex', gap: '16px' }}>
-                <div style={{ backgroundColor: '#ffffff', borderRadius: '8px', padding: '10px 16px', display: 'flex', alignItems: 'center', gap: '8px', color: '#121c2c', fontSize: '0.875rem', fontWeight: 600, cursor: 'pointer', border: '1px solid #e2e8f0' }}>
-                  Sort by: Rating <ChevronDown size={16} color="#6b7a90" />
+                <div onClick={() => setSortBy(prev => prev === 'Rating' ? 'Name' : 'Rating')} style={{ backgroundColor: '#ffffff', borderRadius: '8px', padding: '10px 16px', display: 'flex', alignItems: 'center', gap: '8px', color: '#121c2c', fontSize: '0.875rem', fontWeight: 600, cursor: 'pointer', border: '1px solid #e2e8f0' }}>
+                  Sort by: {sortBy} <ChevronDown size={16} color="#6b7a90" />
                 </div>
                 <button className="btn-scale" style={{ backgroundColor: '#4fa6fd', color: '#ffffff', borderRadius: '8px', padding: '10px 20px', display: 'flex', alignItems: 'center', gap: '8px', fontWeight: 700, fontSize: '0.875rem', border: 'none', cursor: 'pointer' }}>
                   Export Data
@@ -166,12 +184,7 @@ const RiderManagement = () => {
                 </tr>
               </thead>
               <tbody>
-                {[
-                  { name: 'David Miller', id: '#RD-8921', rating: '4.9', completed: '1,420', ontime: '98%', status: 'Online', statusBg: '#dcfce7', statusText: '#10b981', barWidth: '98%', barColor: '#10b981', imgColor: '#4fa6fd' },
-                  { name: 'Elena Rodriguez', id: '#RD-7732', rating: '4.7', completed: '856', ontime: '92%', status: 'Busy', statusBg: '#e5f0ff', statusText: '#4fa6fd', barWidth: '85%', barColor: '#4fa6fd', imgColor: '#a855f7' },
-                  { name: 'James Wilson', id: '#RD-4410', rating: '4.2', completed: '312', ontime: '84%', status: 'Review Needed', statusBg: '#fef3c7', statusText: '#d97706', barWidth: '40%', barColor: '#ef4444', imgColor: '#f97316' },
-                  { name: 'Sarah Parker', id: '#RD-1290', rating: '5.0', completed: '2,105', ontime: '99%', status: 'Top Performer', statusBg: '#dcfce7', statusText: '#10b981', barWidth: '99%', barColor: '#10b981', imgColor: '#ec4899' },
-                ].map(row => (
+                {sortedRiders.map(row => (
                   <tr key={row.id} className="table-row-hover" style={{ borderBottom: '1px solid #f1f5f9' }}>
                     <td style={{ padding: '24px' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>

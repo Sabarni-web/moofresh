@@ -8,23 +8,23 @@ export default function OrderHistory() {
 
   const recentOrders = [
     {
-      id: 101, name: 'Burger King', status: 'DELIVERED', date: 'Oct 24, 2023', items: 3, price: 24.50,
-      image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=200&auto=format&fit=crop'
+      id: 101, name: 'A2 Cow Milk', status: 'DELIVERED', date: 'Oct 24, 2023', items: 3, price: 24.50,
+      image: '/milk.png'
     },
     {
-      id: 102, name: 'Pizza Hut', status: 'DELIVERED', date: 'Oct 21, 2023', items: 2, price: 32.00,
-      image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=200&auto=format&fit=crop'
+      id: 102, name: 'Soft Malai Paneer', status: 'DELIVERED', date: 'Oct 21, 2023', items: 2, price: 32.00,
+      image: '/paneer.png'
     },
     {
-      id: 103, name: 'Sushi House', status: 'DELIVERED', date: 'Oct 19, 2023', items: 5, price: 45.20,
-      image: 'https://images.unsplash.com/photo-1579871494447-9811cf80d66c?q=80&w=200&auto=format&fit=crop'
+      id: 103, name: 'Fresh Set Curd', status: 'DELIVERED', date: 'Oct 19, 2023', items: 5, price: 45.20,
+      image: '/curd.png'
     }
   ];
 
   const pastOrders = [
     {
-      id: 104, name: 'Taco Bell', status: '', date: 'Oct 15, 2023', items: 4, price: 18.75,
-      image: 'https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?q=80&w=200&auto=format&fit=crop',
+      id: 104, name: 'Salted Cow Butter', status: '', date: 'Oct 15, 2023', items: 4, price: 18.75,
+      image: '/butter.png',
       greyscale: true
     }
   ];
