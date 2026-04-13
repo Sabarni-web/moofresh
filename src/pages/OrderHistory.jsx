@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { RotateCcw } from 'lucide-react';
 import Header from '../components/Header';
-import BottomNav from '../components/BottomNav';
 
 export default function OrderHistory() {
   const [activeTab, setActiveTab] = useState('WEEKLY');
@@ -91,15 +90,17 @@ export default function OrderHistory() {
         ))}
       </div>
 
-      <div className="px-6 pt-6">
+      <div className="page-wrapper pt-6">
         <h3 className="font-bold text-lg text-dark mb-4">Recent Orders</h3>
-        {recentOrders.map(order => <OrderCard key={order.id} order={order} />)}
+        <div className="responsive-row">
+          {recentOrders.map(order => <OrderCard key={order.id} order={order} />)}
+        </div>
 
         <h3 className="font-bold text-lg text-dark mt-6 mb-4">Past Orders</h3>
-        {pastOrders.map(order => <OrderCard key={order.id} order={order} isPast={true} />)}
+        <div className="responsive-row">
+          {pastOrders.map(order => <OrderCard key={order.id} order={order} isPast={true} />)}
+        </div>
       </div>
-
-      <BottomNav />
     </div>
   );
 }

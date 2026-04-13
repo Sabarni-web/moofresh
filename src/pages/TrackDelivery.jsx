@@ -1,6 +1,5 @@
 import { Check, Package, MapPin, Home as HomeIcon, Phone, Clock, Crosshair } from 'lucide-react';
 import Header from '../components/Header';
-import BottomNav from '../components/BottomNav';
 
 export default function TrackDelivery() {
   return (
@@ -112,8 +111,6 @@ export default function TrackDelivery() {
         </div>
 
       </div>
-
-      <BottomNav />
     </div>
   );
 }

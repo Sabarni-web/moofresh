@@ -83,14 +83,14 @@ export default function Login() {
 
         <div style={{ marginTop: 'auto', paddingTop: '32px' }}>
           <p className="text-xs text-light text-center" style={{ lineHeight: '1.6' }}>
-            By continuing, you agree to our <a href="#" className="font-semibold" style={{ color: '#4fa6fd' }}>Terms<br/>of Service</a> and <a href="#" className="font-semibold" style={{ color: '#4fa6fd' }}>Privacy Policy</a>
+            By continuing, you agree to our <span className="font-semibold" style={{ color: '#4fa6fd' }}>Terms<br/>of Service</span> and <span className="font-semibold" style={{ color: '#4fa6fd' }}>Privacy Policy</span>
           </p>
         </div>
       </div>
 
       <div className="flex justify-center" style={{ marginTop: '32px', marginBottom: '8px' }}>
         <p className="text-xs text-gray font-medium">
-          Need help? <a href="#" className="font-bold" style={{ color: '#4fa6fd' }}>Contact Support</a>
+          Need help? <button className="font-bold cursor-pointer" style={{ color: '#4fa6fd' }}>Contact Support</button>
         </p>
       </div>
 

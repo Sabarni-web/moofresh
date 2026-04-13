@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Bell, Truck, Trash2, Tag, Percent, Settings, Plus, Minus, Search, Heart } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
-import BottomNav from '../components/BottomNav';
+import { useNavigate, Link } from 'react-router-dom';
 
 export default function Home() {
   const navigate = useNavigate();
@@ -25,7 +24,7 @@ export default function Home() {
     <div className="flex flex-col h-full animate-fade-in" style={{ backgroundColor: '#f6f9fc', minHeight: '100vh', paddingBottom: '80px' }}>
       
       {/* Header */}
-      <div className="flex justify-between items-center" style={{ padding: '24px 24px 16px' }}>
+      <div className="flex justify-between items-center page-wrapper" style={{ paddingTop: '24px', paddingBottom: '16px' }}>
         <div className="flex items-center" style={{ gap: '12px' }}>
           <div style={{ width: '48px', height: '48px', borderRadius: '50%', backgroundColor: '#e2e8f0', overflow: 'hidden' }}>
             <img src="https://i.pravatar.cc/150?img=11" alt="Profile" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
@@ -44,158 +43,170 @@ export default function Home() {
         </div>
       </div>
 
-      <div style={{ padding: '0 24px' }}>
-        {/* Delivery Card */}
-        <div style={{ backgroundColor: 'white', borderRadius: '24px', padding: '0', overflow: 'hidden', boxShadow: 'var(--surface-shadow)', marginBottom: '24px' }}>
-          <div style={{ position: 'relative', height: '120px' }}>
-            <img src="/milk.png" alt="Delivery" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'linear-gradient(to right, rgba(0,0,0,0.7), transparent)' }}></div>
-            <div style={{ position: 'absolute', bottom: '16px', left: '16px', backgroundColor: '#4fa6fd', color: 'white', padding: '4px 8px', borderRadius: '4px', fontSize: '10px', fontWeight: 'bold' }}>
-              DELIVERY REMINDER
+      <div className="page-wrapper home-dashboard-grid" style={{ paddingBottom: '32px' }}>
+        
+        {/* Main Column */}
+        <div className="home-main-col">
+          {/* Delivery Card */}
+          <div style={{ backgroundColor: 'white', borderRadius: '24px', padding: '0', overflow: 'hidden', boxShadow: 'var(--surface-shadow)' }}>
+            <div style={{ position: 'relative', height: '120px' }}>
+              <img src="/milk.png" alt="Delivery" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'linear-gradient(to right, rgba(0,0,0,0.7), transparent)' }}></div>
+              <div style={{ position: 'absolute', bottom: '16px', left: '16px', backgroundColor: '#4fa6fd', color: 'white', padding: '4px 8px', borderRadius: '4px', fontSize: '10px', fontWeight: 'bold' }}>
+                DELIVERY REMINDER
+              </div>
+            </div>
+            <div style={{ padding: '20px' }}>
+              <div className="flex justify-between items-start" style={{ marginBottom: '16px' }}>
+                <div>
+                  <h3 className="font-bold text-lg" style={{ marginBottom: '4px' }}>Your Next Delivery</h3>
+                  <p className="text-primary font-semibold text-sm">Arriving tomorrow, 6:00 AM - 7:30 AM</p>
+                </div>
+                <div style={{ width: '40px', height: '40px', backgroundColor: '#e5f0ff', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <Truck size={20} className="text-primary" />
+                </div>
+              </div>
+              
+              <div className="flex items-center text-sm font-medium text-gray" style={{ gap: '8px', marginBottom: '20px' }}>
+                <Trash2 size={16} />
+                <span>2L Full Cream Milk, 500g Fresh Curd</span>
+              </div>
+              
+              <div style={{ textAlign: 'left' }}>
+                <button 
+                  className="btn-primary shadow-sm" 
+                  style={{ padding: '12px 24px', borderRadius: '12px' }}
+                  onClick={() => navigate('/subscription')}
+                >
+                  Modify Delivery
+                </button>
+              </div>
             </div>
           </div>
-          <div style={{ padding: '20px' }}>
-            <div className="flex justify-between items-start" style={{ marginBottom: '16px' }}>
-              <div>
-                <h3 className="font-bold text-lg" style={{ marginBottom: '4px' }}>Your Next Delivery</h3>
-                <p className="text-primary font-semibold text-sm">Arriving tomorrow, 6:00 AM - 7:30 AM</p>
-              </div>
-              <div style={{ width: '40px', height: '40px', backgroundColor: '#e5f0ff', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <Truck size={20} className="text-primary" />
-              </div>
+
+          {/* Popular Products */}
+          <div>
+            <div className="flex justify-between items-center" style={{ marginBottom: '16px' }}>
+              <h3 className="text-lg font-bold">Popular Products</h3>
+              <Link to="/shop" className="text-sm text-primary font-semibold">Browse Shop</Link>
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '16px' }}>
+              {popularProducts.map(product => (
+                <div key={product.id} style={{ backgroundColor: 'white', borderRadius: '16px', overflow: 'hidden', boxShadow: 'var(--surface-shadow)', position: 'relative' }}>
+                  <div 
+                    style={{ position: 'absolute', top: '12px', right: '12px', backgroundColor: 'white', borderRadius: '50%', padding: '6px', cursor: 'pointer', zIndex: 10 }}
+                    onClick={(e) => toggleLike(e, product.id)}
+                  >
+                    <Heart size={16} color={liked[product.id] ? "#ef4444" : "#94a3b8"} fill={liked[product.id] ? "#ef4444" : "none"} />
+                  </div>
+                  <img src={product.img} style={{ width: '100%', height: '140px', objectFit: 'cover' }} />
+                  <div style={{ padding: '12px' }}>
+                    <p className="text-xs text-gray font-medium" style={{ marginBottom: '4px' }}>{product.category}</p>
+                    <h4 className="font-bold text-sm" style={{ marginBottom: '12px' }}>{product.name}</h4>
+                    <div className="flex justify-between items-center">
+                      <span className="font-bold text-primary">₹{product.price}</span>
+                      <button style={{ backgroundColor: '#f0f6fc', padding: '6px', borderRadius: '8px', color: '#4fa6fd' }}>
+                        <Plus size={16} />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Side Column */}
+        <div className="home-side-col">
+          {/* Today's Offers */}
+          <div>
+            <div className="flex justify-between items-center" style={{ marginBottom: '16px' }}>
+              <h3 className="text-lg font-bold">Today's Offers</h3>
+              <Link to="/shop" className="flex text-sm text-primary font-semibold">View All</Link>
             </div>
             
-            <div className="flex items-center text-sm font-medium text-gray" style={{ gap: '8px', marginBottom: '20px' }}>
-              <Trash2 size={16} />
-              <span>2L Full Cream Milk, 500g Fresh Curd</span>
+            <div className="scroll-row">
+              <div style={{ minWidth: '280px', backgroundColor: '#4fa6fd', borderRadius: '20px', padding: '20px', color: 'white', position: 'relative', overflow: 'hidden' }}>
+                <p className="text-xs font-bold uppercase tracking-wider" style={{ marginBottom: '8px', opacity: 0.9 }}>Special Discount</p>
+                <h4 className="text-xl font-bold" style={{ marginBottom: '8px' }}>20% OFF on Organic<br/>Ghee</h4>
+                <p className="text-xs" style={{ marginBottom: '16px', opacity: 0.9 }}>Valid for subscription users only</p>
+                <button style={{ backgroundColor: 'white', color: '#4fa6fd', padding: '8px 16px', borderRadius: '20px', fontSize: '12px', fontWeight: 'bold' }}>
+                  CLAIM NOW
+                </button>
+                <Tag size={120} color="white" style={{ position: 'absolute', right: '-20px', bottom: '-20px', opacity: 0.2 }} />
+              </div>
+              <div style={{ minWidth: '280px', backgroundColor: '#10b981', borderRadius: '20px', padding: '20px', color: 'white', position: 'relative', overflow: 'hidden' }}>
+                <p className="text-xs font-bold uppercase tracking-wider" style={{ marginBottom: '8px', opacity: 0.9 }}>Bundle Offer</p>
+                <h4 className="text-xl font-bold" style={{ marginBottom: '8px' }}>Free Bread with<br/>Morning Milk</h4>
+                <p className="text-xs" style={{ marginBottom: '16px', opacity: 0.9 }}>When you order 2L or more</p>
+                <button style={{ backgroundColor: 'white', color: '#10b981', padding: '8px 16px', borderRadius: '20px', fontSize: '12px', fontWeight: 'bold' }}>
+                  ADD TO CART
+                </button>
+              </div>
             </div>
-            
-            <div style={{ textAlign: 'left' }}>
-              <button 
-                className="btn-primary shadow-sm" 
-                style={{ padding: '12px 24px', borderRadius: '12px' }}
+          </div>
+
+          {/* Active Subscriptions */}
+          <div>
+            <div className="flex justify-between items-center" style={{ marginBottom: '16px', marginTop: '8px' }}>
+              <h3 className="text-lg font-bold">Active Subscriptions</h3>
+              <Settings size={18} className="text-gray" />
+            </div>
+
+            <div className="responsive-row" style={{ marginBottom: '16px' }}>
+              <div 
+                className="flex items-center" 
+                style={{ backgroundColor: 'white', padding: '12px', borderRadius: '16px', boxShadow: 'var(--surface-shadow)', cursor: 'pointer' }}
                 onClick={() => navigate('/subscription')}
               >
-                Modify Delivery
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Today's Offers */}
-        <div className="flex justify-between items-center" style={{ marginBottom: '16px' }}>
-          <h3 className="text-lg font-bold">Today's Offers</h3>
-          <a href="#" className="flex text-sm text-primary font-semibold">View All</a>
-        </div>
-        
-        <div style={{ display: 'flex', gap: '16px', overflowX: 'auto', paddingBottom: '16px', margin: '0 -24px', paddingLeft: '24px', paddingRight: '24px' }} className="scrollbar-hide">
-          <div style={{ minWidth: '280px', backgroundColor: '#4fa6fd', borderRadius: '20px', padding: '20px', color: 'white', position: 'relative', overflow: 'hidden' }}>
-            <p className="text-xs font-bold uppercase tracking-wider" style={{ marginBottom: '8px', opacity: 0.9 }}>Special Discount</p>
-            <h4 className="text-xl font-bold" style={{ marginBottom: '8px' }}>20% OFF on Organic<br/>Ghee</h4>
-            <p className="text-xs" style={{ marginBottom: '16px', opacity: 0.9 }}>Valid for subscription users only</p>
-            <button style={{ backgroundColor: 'white', color: '#4fa6fd', padding: '8px 16px', borderRadius: '20px', fontSize: '12px', fontWeight: 'bold' }}>
-              CLAIM NOW
-            </button>
-            <Tag size={120} color="white" style={{ position: 'absolute', right: '-20px', bottom: '-20px', opacity: 0.2 }} />
-          </div>
-          <div style={{ minWidth: '280px', backgroundColor: '#10b981', borderRadius: '20px', padding: '20px', color: 'white', position: 'relative', overflow: 'hidden' }}>
-            <p className="text-xs font-bold uppercase tracking-wider" style={{ marginBottom: '8px', opacity: 0.9 }}>Bundle Offer</p>
-            <h4 className="text-xl font-bold" style={{ marginBottom: '8px' }}>Free Bread with<br/>Morning Milk</h4>
-             <p className="text-xs" style={{ marginBottom: '16px', opacity: 0.9 }}>When you order 2L or more</p>
-            <button style={{ backgroundColor: 'white', color: '#10b981', padding: '8px 16px', borderRadius: '20px', fontSize: '12px', fontWeight: 'bold' }}>
-              ADD TO CART
-            </button>
-          </div>
-        </div>
-
-        {/* Active Subscriptions */}
-        <div className="flex justify-between items-center" style={{ marginBottom: '16px', marginTop: '8px' }}>
-          <h3 className="text-lg font-bold">Active Subscriptions</h3>
-          <Settings size={18} className="text-gray" />
-        </div>
-
-        <div className="flex flex-col" style={{ gap: '12px', marginBottom: '32px' }}>
-          <div 
-            className="flex items-center" 
-            style={{ backgroundColor: 'white', padding: '12px', borderRadius: '16px', boxShadow: 'var(--surface-shadow)', cursor: 'pointer' }}
-            onClick={() => navigate('/subscription')}
-          >
-            <img src="/milk.png" style={{ width: '56px', height: '56px', borderRadius: '12px', objectFit: 'cover' }} />
-            <div style={{ marginLeft: '16px', flex: 1 }}>
-              <div className="flex items-center" style={{ gap: '8px', marginBottom: '4px' }}>
-                <h4 className="font-bold">Full Cream Milk</h4>
-                <span style={{ backgroundColor: milkActive ? '#d1fae5' : '#f1f5f9', color: milkActive ? '#059669' : '#64748b', fontSize: '8px', padding: '2px 6px', borderRadius: '4px', fontWeight: 'bold' }}>{milkActive ? 'ACTIVE' : 'PAUSED'}</span>
+                <img src="/milk.png" style={{ width: '56px', height: '56px', borderRadius: '12px', objectFit: 'cover' }} />
+                <div style={{ marginLeft: '16px', flex: 1 }}>
+                  <div className="flex items-center" style={{ gap: '8px', marginBottom: '4px' }}>
+                    <h4 className="font-bold">Full Cream Milk</h4>
+                    <span style={{ backgroundColor: milkActive ? '#d1fae5' : '#f1f5f9', color: milkActive ? '#059669' : '#64748b', fontSize: '8px', padding: '2px 6px', borderRadius: '4px', fontWeight: 'bold' }}>{milkActive ? 'ACTIVE' : 'PAUSED'}</span>
+                  </div>
+                  <p className="text-xs text-gray" style={{ marginBottom: '4px' }}>1 Litre • Daily Delivery</p>
+                  <p className="text-xs text-light" style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                    <span>📅</span> Next: Tomorrow 6:00 AM
+                  </p>
+                </div>
+                <div 
+                  style={{ width: '40px', height: '24px', backgroundColor: milkActive ? '#4fa6fd' : '#e2e8f0', borderRadius: '12px', position: 'relative', transition: 'all 0.3s' }}
+                  onClick={(e) => { e.stopPropagation(); setMilkActive(!milkActive); }}
+                >
+                  <div style={{ position: 'absolute', right: milkActive ? '2px' : '18px', top: '2px', width: '20px', height: '20px', backgroundColor: 'white', borderRadius: '50%', transition: 'all 0.3s' }}></div>
+                </div>
               </div>
-              <p className="text-xs text-gray" style={{ marginBottom: '4px' }}>1 Litre • Daily Delivery</p>
-              <p className="text-xs text-light" style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                 <span>📅</span> Next: Tomorrow 6:00 AM
-              </p>
-            </div>
-            <div 
-              style={{ width: '40px', height: '24px', backgroundColor: milkActive ? '#4fa6fd' : '#e2e8f0', borderRadius: '12px', position: 'relative', transition: 'all 0.3s' }}
-              onClick={(e) => { e.stopPropagation(); setMilkActive(!milkActive); }}
-            >
-               <div style={{ position: 'absolute', right: milkActive ? '2px' : '18px', top: '2px', width: '20px', height: '20px', backgroundColor: 'white', borderRadius: '50%', transition: 'all 0.3s' }}></div>
-            </div>
-          </div>
 
-          <div 
-            className="flex items-center" 
-            style={{ backgroundColor: 'white', padding: '12px', borderRadius: '16px', boxShadow: 'var(--surface-shadow)', cursor: 'pointer' }}
-            onClick={() => navigate('/subscription')}
-          >
-            <img src="/curd.png" style={{ width: '56px', height: '56px', borderRadius: '12px', objectFit: 'cover' }} />
-            <div style={{ marginLeft: '16px', flex: 1 }}>
-              <div className="flex items-center" style={{ gap: '8px', marginBottom: '4px' }}>
-                <h4 className="font-bold">Probiotic Curd</h4>
-                <span style={{ backgroundColor: curdActive ? '#d1fae5' : '#f1f5f9', color: curdActive ? '#059669' : '#64748b', fontSize: '8px', padding: '2px 6px', borderRadius: '4px', fontWeight: 'bold' }}>{curdActive ? 'ACTIVE' : 'PAUSED'}</span>
-              </div>
-              <p className="text-xs text-gray" style={{ marginBottom: '4px' }}>500g • Mon, Wed, Fri</p>
-              <p className="text-xs text-light" style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                 <span>📅</span> Next: Tomorrow 6:00 AM
-              </p>
-            </div>
-             <div 
-               style={{ width: '40px', height: '24px', backgroundColor: curdActive ? '#4fa6fd' : '#e2e8f0', borderRadius: '12px', position: 'relative', transition: 'all 0.3s' }}
-               onClick={(e) => { e.stopPropagation(); setCurdActive(!curdActive); }}
-             >
-               <div style={{ position: 'absolute', right: curdActive ? '2px' : '18px', top: '2px', width: '20px', height: '20px', backgroundColor: 'white', borderRadius: '50%', transition: 'all 0.3s' }}></div>
-            </div>
-          </div>
-        </div>
-
-        {/* Popular Products */}
-        <div className="flex justify-between items-center" style={{ marginBottom: '16px' }}>
-          <h3 className="text-lg font-bold">Popular Products</h3>
-          <a href="#" className="text-sm text-primary font-semibold">Browse Shop</a>
-        </div>
-
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '16px', marginBottom: '24px' }}>
-          {popularProducts.map(product => (
-            <div key={product.id} style={{ backgroundColor: 'white', borderRadius: '16px', overflow: 'hidden', boxShadow: 'var(--surface-shadow)', position: 'relative' }}>
               <div 
-                style={{ position: 'absolute', top: '12px', right: '12px', backgroundColor: 'white', borderRadius: '50%', padding: '6px', cursor: 'pointer', zIndex: 10 }}
-                onClick={(e) => toggleLike(e, product.id)}
+                className="flex items-center" 
+                style={{ backgroundColor: 'white', padding: '12px', borderRadius: '16px', boxShadow: 'var(--surface-shadow)', cursor: 'pointer' }}
+                onClick={() => navigate('/subscription')}
               >
-                 <Heart size={16} color={liked[product.id] ? "#ef4444" : "#94a3b8"} fill={liked[product.id] ? "#ef4444" : "none"} />
-              </div>
-              <img src={product.img} style={{ width: '100%', height: '140px', objectFit: 'cover' }} />
-              <div style={{ padding: '12px' }}>
-                <p className="text-xs text-gray font-medium" style={{ marginBottom: '4px' }}>{product.category}</p>
-                <h4 className="font-bold text-sm" style={{ marginBottom: '12px' }}>{product.name}</h4>
-                <div className="flex justify-between items-center">
-                  <span className="font-bold text-primary">₹{product.price}</span>
-                  <button style={{ backgroundColor: '#f0f6fc', padding: '6px', borderRadius: '8px', color: '#4fa6fd' }}>
-                    <Plus size={16} />
-                  </button>
+                <img src="/curd.png" style={{ width: '56px', height: '56px', borderRadius: '12px', objectFit: 'cover' }} />
+                <div style={{ marginLeft: '16px', flex: 1 }}>
+                  <div className="flex items-center" style={{ gap: '8px', marginBottom: '4px' }}>
+                    <h4 className="font-bold">Probiotic Curd</h4>
+                    <span style={{ backgroundColor: curdActive ? '#d1fae5' : '#f1f5f9', color: curdActive ? '#059669' : '#64748b', fontSize: '8px', padding: '2px 6px', borderRadius: '4px', fontWeight: 'bold' }}>{curdActive ? 'ACTIVE' : 'PAUSED'}</span>
+                  </div>
+                  <p className="text-xs text-gray" style={{ marginBottom: '4px' }}>500g • Mon, Wed, Fri</p>
+                  <p className="text-xs text-light" style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                    <span>📅</span> Next: Tomorrow 6:00 AM
+                  </p>
+                </div>
+                <div 
+                  style={{ width: '40px', height: '24px', backgroundColor: curdActive ? '#4fa6fd' : '#e2e8f0', borderRadius: '12px', position: 'relative', transition: 'all 0.3s' }}
+                  onClick={(e) => { e.stopPropagation(); setCurdActive(!curdActive); }}
+                >
+                  <div style={{ position: 'absolute', right: curdActive ? '2px' : '18px', top: '2px', width: '20px', height: '20px', backgroundColor: 'white', borderRadius: '50%', transition: 'all 0.3s' }}></div>
                 </div>
               </div>
             </div>
-          ))}
+          </div>
         </div>
 
       </div>
-      <BottomNav />
     </div>
   );
 }

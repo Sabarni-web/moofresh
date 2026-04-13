@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Check, Tag, Truck, Info, Star } from 'lucide-react';
 import Header from '../components/Header';
-import BottomNav from '../components/BottomNav';
 
 export default function Notifications() {
   const [activeTab, setActiveTab] = useState('All');
@@ -63,7 +62,7 @@ export default function Notifications() {
             key={tab}
             onClick={() => setActiveTab(tab)}
             className="flex-1 py-3 text-sm font-semibold"
-            style={{ 
+            style={{
               color: activeTab === tab ? 'var(--primary-blue)' : 'var(--text-gray)',
               borderBottom: activeTab === tab ? '2px solid var(--primary-blue)' : '2px solid transparent',
               transition: 'all 0.2s'
@@ -78,15 +77,15 @@ export default function Notifications() {
         {Object.keys(groupedNotifications).map(date => (
           <div key={date} className="mb-6">
             <h3 className="px-6 py-4 text-xs font-bold text-gray uppercase tracking-widest">{date}</h3>
-            
+
             <div className="flex flex-col">
-              {groupedNotifications[date].map((item, idx) => (
+              {groupedNotifications[date].map((item) => (
                 <div key={item.id} className="flex px-6 py-4 bg-white" style={{ borderBottom: '1px solid var(--border-light)' }}>
-                  
+
                   {/* Icon */}
-                  <div style={{ 
-                    width: '40px', height: '40px', 
-                    borderRadius: '12px', 
+                  <div style={{
+                    width: '40px', height: '40px',
+                    borderRadius: '12px',
                     backgroundColor: item.bg,
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                     flexShrink: 0,
@@ -94,7 +93,7 @@ export default function Notifications() {
                   }}>
                     {item.icon}
                   </div>
-                  
+
                   {/* Content */}
                   <div className="flex-1 min-w-0">
                     <div className="flex justify-between items-start mb-1">
@@ -110,15 +109,13 @@ export default function Notifications() {
                       </button>
                     )}
                   </div>
-                  
+
                 </div>
               ))}
             </div>
           </div>
         ))}
       </div>
-
-      <BottomNav />
     </div>
   );
 }

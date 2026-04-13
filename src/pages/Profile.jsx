@@ -1,8 +1,9 @@
+import { useNavigate } from 'react-router-dom';
 import { Pencil, RefreshCw, Home, Briefcase, CreditCard, Wallet, HelpCircle, MessageSquare, Clock, ChevronRight } from 'lucide-react';
 import Header from '../components/Header';
-import BottomNav from '../components/BottomNav';
 
 export default function Profile() {
+  const navigate = useNavigate();
   return (
     <div className="flex flex-col h-full bg-color pb-24 relative min-h-screen">
       <Header title="Account Profile" rightIcon="settings" />
@@ -136,9 +137,35 @@ export default function Profile() {
           </div>
         </div>
 
-      </div>
+        {/* DEMO APP SWITCHER */}
+        <div style={{ marginBottom: '32px' }}>
+          <h3 className="text-[11px] font-bold text-gray uppercase tracking-widest mb-3">DEMO APP SWITCHER</h3>
+          <div className="flex flex-col gap-3">
+            <div onClick={() => navigate('/admin')} className="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-4 cursor-pointer hover-lift">
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ backgroundColor: 'var(--accent-blue-light)' }}>
+                 <Briefcase size={20} className="text-primary" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <h4 className="font-bold text-sm text-dark mb-0.5 truncate">Admin Platform</h4>
+                <p className="text-xs text-gray truncate">Switch to management dashboard</p>
+              </div>
+              <ChevronRight size={16} color="#cbd5e1" />
+            </div>
 
-      <BottomNav />
+            <div onClick={() => navigate('/delivery')} className="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-4 cursor-pointer hover-lift">
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ backgroundColor: '#dcfce7' }}>
+                 <Clock size={20} color="#10b981" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <h4 className="font-bold text-sm text-dark mb-0.5 truncate">Delivery Rider App</h4>
+                <p className="text-xs text-gray truncate">Switch to rider active deliveries</p>
+              </div>
+              <ChevronRight size={16} color="#cbd5e1" />
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
   );
 }

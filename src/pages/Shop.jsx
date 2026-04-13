@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { ShoppingCart, Menu, Search, Plus, Minus, SlidersHorizontal } from 'lucide-react';
-import BottomNav from '../components/BottomNav';
 
 export default function Shop() {
   const categories = ['Milk', 'Curd', 'Paneer', 'Butter', 'Ghee'];
@@ -29,7 +28,7 @@ export default function Shop() {
     <div className="flex flex-col h-full animate-fade-in" style={{ backgroundColor: '#f6f9fc', minHeight: '100vh', paddingBottom: '80px' }}>
       
       {/* Header */}
-      <div className="flex justify-between items-center" style={{ padding: '24px 24px 16px' }}>
+      <div className="flex justify-between items-center page-wrapper" style={{ paddingTop: '24px', paddingBottom: '16px' }}>
         <div className="flex items-center gap-4">
           <div style={{ width: '40px', height: '40px', backgroundColor: '#e5f0ff', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <Menu size={20} color="#4fa6fd" />
@@ -45,7 +44,7 @@ export default function Shop() {
       </div>
 
       {/* Tabs */}
-      <div className="flex border-b border-light scrollbar-hide" style={{ padding: '0 24px', overflowX: 'auto', gap: '24px' }}>
+      <div className="flex border-b border-light scrollbar-hide page-wrapper" style={{ overflowX: 'auto', gap: '24px' }}>
         {categories.map((cat, idx) => (
           <div 
             key={cat} 
@@ -57,7 +56,7 @@ export default function Shop() {
         ))}
       </div>
 
-      <div style={{ padding: '24px 24px 0' }}>
+      <div className="page-wrapper" style={{ paddingTop: '24px' }}>
         {/* Search */}
         <div className="flex items-center" style={{ backgroundColor: '#e2e8f0', borderRadius: '16px', padding: '12px 16px', marginBottom: '24px', opacity: 0.7 }}>
           <Search size={20} className="text-gray" style={{ marginRight: '12px' }} />
@@ -70,7 +69,7 @@ export default function Shop() {
 
         <div className="flex justify-between items-center" style={{ marginBottom: '20px' }}>
           <h3 className="text-lg font-bold">Fresh Milk</h3>
-          <a href="#" className="text-sm text-primary flex items-center gap-1 font-semibold">Filter</a>
+          <button className="text-sm text-primary flex items-center gap-1 font-semibold cursor-pointer">Filter</button>
         </div>
 
         {/* Product Grid */}
@@ -106,7 +105,6 @@ export default function Shop() {
           ))}
         </div>
       </div>
-      <BottomNav />
     </div>
   );
 }

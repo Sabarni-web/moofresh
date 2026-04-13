@@ -1,11 +1,8 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 
 export default function Onboarding() {
   const navigate = useNavigate();
-  const [slide] = useState(0);
-
   return (
     <div className="flex flex-col animate-fade-in" style={{ backgroundColor: '#f6f9fc', minHeight: '100dvh', overflowY: 'auto', padding: '24px' }}>
       <div style={{ display: 'flex', justifyContent: 'flex-end', paddingTop: '16px', marginBottom: '24px' }}>
